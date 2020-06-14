@@ -1,4 +1,5 @@
 from orautil.core.helpers import SpecialDict
+from pathlib import Path
 from orautil.core.functions import is_file, is_readable
 
 
@@ -48,8 +49,6 @@ class Oratab(object):
 
     @tab.setter
     def tab(self, filename):
-        from pathlib import Path
-
         is_file(filename)
         is_readable(filename)
         self._oratab = Path(filename)
