@@ -237,13 +237,16 @@ class OracleHome(object):
     @property
     def opatchauto(self):
         """
-        retrieves oracle_home + OPatch + opatchauto binary
+        Retrieves oracle_home + OPatch + opatchauto binary. Apparently 11g does not have an opatchauto binary.
         :return: a Path object
         """
-        binary = self.oracle_home / self.opatchdir / "opatchauto"
-        is_file(binary)
-        is_executable(binary)
-        return binary
+        if self.major_version >= 12:
+            binary = self.oracle_home / self.opatchdir / "opatchauto"
+            is_file(binary)
+            is_executable(binary)
+            return binary
+        else:
+            return None
 
     @property
     def sqlplus(self):
