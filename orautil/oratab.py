@@ -1,4 +1,5 @@
 from orautil.core.helpers import SpecialDict
+from orautil.core.functions import is_file, is_readable
 
 
 class Oratab(object):
@@ -40,3 +41,15 @@ class Oratab(object):
             _, autostart_status = value
             status[autostart_status] = key
         return status
+
+    @property
+    def tab(self):
+        return self._oratab
+
+    @tab.setter
+    def tab(self, filename):
+        from pathlib import Path
+
+        is_file(filename)
+        is_readable(filename)
+        self._oratab = Path(filename)
