@@ -14,7 +14,7 @@ class Oratab(object):
             self.tab = tab
             assert self.entries
 
-    def __call__(self, tab):
+    def __call__(self, tab: str):
         self.tab = tab
         assert self.entries
         return self
@@ -62,12 +62,12 @@ class Oratab(object):
         return self._oratab
 
     @tab.setter
-    def tab(self, filename):
+    def tab(self, filename: str):
         is_file(filename)
         is_readable(filename)
-        self._oratab = Path(filename)
+        self._oratab = to_path(filename)
 
-    def check_oracle_sid(self, sid: str) -> str:
+    def check_oracle_sid(self, sid: str) -> Union[str, OratabError]:
         """
         incoming "sid" is checked against the sanitized list of all SIDs listed in oratab
         :param sid: a string
@@ -81,7 +81,7 @@ class Oratab(object):
         else:
             return sid
 
-    def check_oracle_home(self, home):
+    def check_oracle_home(self, home: str) -> Union[str, OratabError]:
         """
         incoming "home" argument is checked for being a director, for read, write, execution bits, and then checked
         against the sanitized list of all oracle homes listed in oratab
@@ -90,11 +90,11 @@ class Oratab(object):
         :raises: OratabError, when oracle home not found in oratab
         """
         if home in self.homes.keys():
-            return to_path(home)
+            return home
         else:
             raise OratabError(self, home=home)
 
-    def get_home(self, sid: str):
+    def get_home(self, sid: str) -> Union[str, OratabError]:
         """
         returns the home base on the incoming SID argument. If nocheck is True, it does not call
         "check_oracle_home" function
@@ -104,7 +104,7 @@ class Oratab(object):
         self.check_oracle_sid(sid)
         return self.entries[sid][0]
 
-    def get_sid(self, home):
+    def get_sid(self, home: str) -> Union[str, OratabError]:
         """
         returns the sid(s) associated with a specific Oracle home
         :param home:
