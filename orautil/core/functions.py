@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 from lxml import etree
+
 from orautil.core.exceptions import LocationError
 
 __all__ = [
@@ -70,7 +71,7 @@ def is_executable(location: [str, Path]) -> Path:
         return p
 
 
-def get_tree(xml: Path):
+def get_tree(xml: Path) -> etree:
     try:
         assert isinstance(xml, Path)
     except AssertionError:

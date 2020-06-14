@@ -1,6 +1,7 @@
-from orautil.core.helpers import SpecialDict
 from pathlib import Path
+
 from orautil.core.functions import is_file, is_readable
+from orautil.core.helpers import SpecialDict
 
 
 class Oratab(object):
