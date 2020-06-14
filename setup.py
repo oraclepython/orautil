@@ -27,8 +27,8 @@ requires = ["lxml"]
 setup(
     name=app_name,
     version=version,
-    description="HTTP client for interacting with vault REST API.",
-    author="",
+    description="Utilities to interact with the /etc/oratab file and set up the Oracle environment in python",
+    author="Daniel Ciulinaru",
     author_email="",
     packages=find_packages(exclude=["test"]),
     install_requires=requires,
