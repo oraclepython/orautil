@@ -13,6 +13,9 @@ from .exceptions import OracleHomeError
 class OracleHome(object):
     def __init__(self, oracle_home):
         self.oracle_home = oracle_home
+        self.bindir = self.oracle_home / "bin"
+        self.opatchdir = self.oracle_home / "OPatch"
+        self.libdir = self.oracle_home / "lib"
 
     @property
     def oracle_home(self):
@@ -215,7 +218,7 @@ class OracleHome(object):
         retrieves oracle_home + lib
         :return: a Path object
         """
-        folder = self.oracle_home / "lib"
+        folder = self.oracle_home / self.libdir
         is_dir(folder)
         is_readable(folder)
         return folder
@@ -226,7 +229,7 @@ class OracleHome(object):
         retrieves oracle_home + OPatch + opatch binary
         :return: a Path object
         """
-        binary = self.oracle_home / "OPatch" / "opatch"
+        binary = self.oracle_home / self.opatchdir / "opatch"
         is_file(binary)
         is_executable(binary)
         return binary
@@ -237,7 +240,7 @@ class OracleHome(object):
         retrieves oracle_home + OPatch + opatchauto binary
         :return: a Path object
         """
-        binary = self.oracle_home / "OPatch" / "opatchauto"
+        binary = self.oracle_home / self.opatchdir / "opatchauto"
         is_file(binary)
         is_executable(binary)
         return binary
@@ -248,7 +251,7 @@ class OracleHome(object):
         retrieves oracle_home + bin + sqlplus binary
         :return: a Path object
         """
-        binary = self.oracle_home / "bin" / "sqlplus"
+        binary = self.oracle_home / self.bindir / "sqlplus"
         is_file(binary)
         is_executable(binary)
         return binary
@@ -259,7 +262,7 @@ class OracleHome(object):
         retrieves oracle_home + bin + rman binary
         :return: a Path object
         """
-        binary = self.oracle_home / "bin" / "rman"
+        binary = self.oracle_home / self.bindir / "rman"
         is_file(binary)
         is_executable(binary)
         return binary
